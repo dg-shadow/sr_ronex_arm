@@ -1,0 +1,469 @@
+<robot
+  name="ronex_arm_v1">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00431431515775475 -4.82549562735761E-05 0.0227068015933145"
+        rpy="0 0 0" />
+      <mass
+        value="0.821908263229317" />
+      <inertia
+        ixx="0.00129707558736385"
+        ixy="-2.23072860798812E-06"
+        ixz="0.000115143874936511"
+        iyy="0.00291698875077821"
+        iyz="-2.24132448078072E-06"
+        izz="0.00334694654156924" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link_1">
+    <inertial>
+      <origin
+        xyz="0.00868682800921774 0.00178915948487049 -0.00658209744759772"
+        rpy="0 0 0" />
+      <mass
+        value="0.0834821063345965" />
+      <inertia
+        ixx="3.58069947364421E-05"
+        ixy="5.38422626528829E-07"
+        ixz="2.71877837678979E-06"
+        iyy="4.65879290649884E-05"
+        iyz="-8.47147727781336E-08"
+        izz="3.55218001826396E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.152"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="link_1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-2.3"
+      upper="2.3"
+      effort="0"
+      velocity="3" />
+    <safety_controller
+      soft_upper="2"
+      soft_lower="-2"
+      k_velocity="0" />
+  </joint>
+  <link
+    name="link_2">
+    <inertial>
+      <origin
+        xyz="0.000199465897160275 0.00169993554992982 0.122759342602549"
+        rpy="0 0 0" />
+      <mass
+        value="0.0794780466261019" />
+      <inertia
+        ixx="0.000329894874250509"
+        ixy="8.03290909316488E-08"
+        ixz="5.33495111000055E-07"
+        iyy="0.000315402825894609"
+        iyz="-6.80299186206687E-06"
+        izz="2.36432665075105E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_2"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="link_1" />
+    <child
+      link="link_2" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.57"
+      upper="2.36"
+      effort="0"
+      velocity="3" />
+    <safety_controller
+      soft_upper="2.3"
+      soft_lower="-1.5"
+      k_velocity="0" />
+  </joint>
+  <link
+    name="link_3">
+    <inertial>
+      <origin
+        xyz="0.0056583258459365 0.0231553566471397 0.0438832137311302"
+        rpy="0 0 0" />
+      <mass
+        value="0.054724496035801" />
+      <inertia
+        ixx="7.50816784370508E-05"
+        ixy="3.69507378823013E-06"
+        ixz="4.97637562029335E-06"
+        iyy="5.54358879237017E-05"
+        iyz="1.6188112296012E-05"
+        izz="3.57616734021639E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_3"
+    type="revolute">
+    <origin
+      xyz="0 0 0.16462"
+      rpy="0 0 0" />
+    <parent
+      link="link_2" />
+    <child
+      link="link_3" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-2.4"
+      upper="2.4"
+      effort="0"
+      velocity="3" />
+    <safety_controller
+      soft_upper="-2.2"
+      soft_lower="-2.2"
+      k_velocity="0" />
+  </joint>
+  <link
+    name="link_4">
+    <inertial>
+      <origin
+        xyz="1.95739353628606E-10 -0.00945657475751274 0.0302568917634391"
+        rpy="0 0 0" />
+      <mass
+        value="0.0429933251414589" />
+      <inertia
+        ixx="1.55316236023492E-05"
+        ixy="2.3325723388825E-13"
+        ixz="-4.06466919320175E-13"
+        iyy="7.63185892306623E-06"
+        iyz="2.2243105223589E-07"
+        izz="1.12000446776496E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_4"
+    type="revolute">
+    <origin
+      xyz="0 0 0.06065"
+      rpy="0 0 0" />
+    <parent
+      link="link_3" />
+    <child
+      link="link_4" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="0"
+      velocity="3" />
+    <safety_controller
+      soft_upper="1.5"
+      soft_lower="-1.5"
+      k_velocity="0" />
+  </joint>
+  <link
+    name="link_5">
+    <inertial>
+      <origin
+        xyz="0.00740295924853003 4.31056478543821E-05 0.0106517952431207"
+        rpy="0 0 0" />
+      <mass
+        value="0.0577365107371118" />
+      <inertia
+        ixx="1.71055631297659E-05"
+        ixy="-5.64071211609215E-08"
+        ixz="4.197477893917E-08"
+        iyy="9.32173830107371E-06"
+        iyz="2.44409023334954E-10"
+        izz="2.23182862633664E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/link_5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint_5"
+    type="revolute">
+    <origin
+      xyz="0 0 0.056"
+      rpy="0 0 0" />
+    <parent
+      link="link_4" />
+    <child
+      link="link_5" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="0"
+      velocity="3" />
+    <safety_controller
+      soft_upper="1.5"
+      soft_lower="-1.5"
+      k_velocity="0" />
+  </joint>
+  <link
+    name="tooth_1">
+    <inertial>
+      <origin
+        xyz="1.4256505650009E-18 -0.0042 0.01"
+        rpy="0 0 0" />
+      <mass
+        value="0.0028125" />
+      <inertia
+        ixx="1.510125E-07"
+        ixy="2.13037781823618E-23"
+        ixz="-5.83550072762019E-23"
+        iyy="1.81640625E-07"
+        iyz="2.32031249999999E-08"
+        izz="7.4840625E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/tooth_1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/tooth_1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tooth_j1"
+    type="prismatic">
+    <origin
+      xyz="0 0 0.021"
+      rpy="0 0 0" />
+    <parent
+      link="link_5" />
+    <child
+      link="tooth_1" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0.016"
+      effort="0"
+      velocity="0.05" />
+  </joint>
+  <link
+    name="tooth_2">
+    <inertial>
+      <origin
+        xyz="-5.61540492382229E-18 0.0042 0.0100000000000001"
+        rpy="0 0 0" />
+      <mass
+        value="0.00281250000000001" />
+      <inertia
+        ixx="1.51012500000001E-07"
+        ixy="2.77027957022837E-23"
+        ixz="2.38460660962552E-23"
+        iyy="1.81640625000001E-07"
+        iyz="-2.32031250000001E-08"
+        izz="7.48406250000002E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/tooth_2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ronex_arm_v1/meshes/tooth_2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tooth_j2"
+    type="prismatic">
+    <origin
+      xyz="0 0 0.021"
+      rpy="0 0 0" />
+    <parent
+      link="link_5" />
+    <child
+      link="tooth_2" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.016"
+      effort="0"
+      velocity="0.05" />
+  </joint>
+</robot>

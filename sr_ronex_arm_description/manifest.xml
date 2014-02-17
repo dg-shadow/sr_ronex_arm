@@ -1,0 +1,6 @@
+<package>
+  <description brief="sr_ronex_arm_description">sr_ronex_arm_description</description>
+  <depend package="gazebo" />
+  <author>me</author>
+  <license>BSD</license>
+</package>
