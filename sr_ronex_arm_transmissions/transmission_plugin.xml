@@ -1,0 +1,9 @@
+<library path="lib/libsr_ronex_transmissions">
+  <class name="sr_ronex_transmissions/RonexArmTransmission"
+	 type="ronex::RonexArmTransmission" base_class_type="pr2_mechanism_model::Transmission">
+    <description>
+      This transmission is used to map the RoNeX's pin to a joint in the robot urdf.
+    </description>
+  </class>
+
+</library>

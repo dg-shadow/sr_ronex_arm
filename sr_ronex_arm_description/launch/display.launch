@@ -6,7 +6,7 @@
     default="False" />
   <param
     name="robot_description"
-    textfile="$(find ronex_arm_v1)/robots/ronex_arm_v1.URDF" />
+    textfile="$(find sr_ronex_arm_description)/robots/sr_ronex_arm.urdf" />
   <param
     name="use_gui"
     value="$(arg gui)" />
@@ -22,5 +22,5 @@
     name="rviz"
     pkg="rviz"
     type="rviz"
-    args="-d $(find ronex_arm_v1)/urdf.rviz" />
+    args="-d $(find sr_ronex_arm_description)/urdf.rviz" />
 </launch>

@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_i10" args="set /ronex/general_io/10 input_mode_0 false" />
+	<node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_icl" args="set /ronex/general_io/10 pwm_clock_divider 10" />
+</launch>

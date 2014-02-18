@@ -1,0 +1,34 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(sr_ronex_arm_transmissions)
+# Load catkin and all dependencies required for this package
+find_package(catkin REQUIRED COMPONENTS roscpp rostest sr_ronex_hardware_interface pr2_mechanism_model)
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+#set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+
+#set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+
+#common commands for building c++ executables and libraries
+add_library(sr_ronex_arm_transmissions src/ronex_arm_transmission.cpp src/mapping/general_io/command_to_servo.cpp)
+
+# catkin_package parameters: http://ros.org/doc/groovy/api/catkin/html/dev_guide/generated_cmake_api.html#catkin-package
+catkin_package(
+    CATKIN_DEPENDS sr_ronex_hardware_interface pr2_mechanism_model roscpp rostest
+    INCLUDE_DIRS include
+)
+
+
+install(TARGETS sr_ronex_arm_transmissions
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
+
+install(DIRECTORY include/${PROJECT_NAME}/
+   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+
+install(FILES transmission_plugin.xml
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
