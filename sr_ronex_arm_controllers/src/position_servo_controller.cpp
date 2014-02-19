@@ -22,116 +22,111 @@
  *         different pins to the value you want directly.
  **/
 
-#include "sr_ronex_controllers/general_io_passthrough_controller.hpp"
+#include "sr_ronex_arm_controllers/position_servo_controller.hpp"
 #include "pluginlib/class_list_macros.h"
 
-PLUGINLIB_EXPORT_CLASS( ronex::GeneralIOPassthroughController, pr2_controller_interface::Controller)
+PLUGINLIB_EXPORT_CLASS( ronex::PositionServoController, pr2_controller_interface::Controller)
 
 namespace ronex
 {
-  GeneralIOPassthroughController::GeneralIOPassthroughController()
-    : loop_count_(0)
+  PositionServoController::PositionServoController(): joint_state_(NULL), command_(0),
+  loop_count_(0), initialised_(false), robot_(NULL), last_time_(0)
   {}
 
-  GeneralIOPassthroughController::~GeneralIOPassthroughController()
+  PositionServoController::~PositionServoController()
   {
-    for(size_t i=0; i < digital_subscribers_.size(); ++i)
-    {
-      digital_subscribers_[i].shutdown();
-    }
-    for(size_t i=0; i < pwm_subscribers_.size(); ++i)
-    {
-      pwm_subscribers_[i].shutdown();
-    }
   }
 
-  bool GeneralIOPassthroughController::init(pr2_mechanism_model::RobotState* robot, ros::NodeHandle &n)
+  bool PositionServoController::init(pr2_mechanism_model::RobotState *robot, const std::string &joint_name)
   {
     assert(robot);
-    node_ = n;
 
-    std::string ronex_id;
-    if (!node_.getParam("ronex_id", ronex_id)) {
-      ROS_ERROR("No RoNeX ID given (namespace: %s)", node_.getNamespace().c_str());
-      return false;
-    }
+    last_time_ = robot->getTime();
+    joint_state_ = robot_->getJointState(joint_name);
 
-    //get the path from the parameters
-    std::string path;
-    int parameter_id = get_ronex_param_id(ronex_id);
-    {
-      if( parameter_id == -1 )
+    if (!joint_state_)
       {
-        ROS_ERROR_STREAM("Could not find the RoNeX id in the parameter server: " << ronex_id << " not loading the controller.");
+        ROS_ERROR("JointPositionController could not find joint named \"%s\"\n",
+                  joint_name.c_str());
         return false;
       }
-      else
+
+    if (!joint_state_->calibrated_)
       {
-        std::stringstream ss;
-        ss << "/ronex/devices/" << parameter_id << "/path";
-        if( !ros::param::get(ss.str(), path) )
-        {
-          ROS_ERROR_STREAM("Couldn't read the parameter " << ss.str() << " from the parameter server. Not loading the controller.");
-          return false;
-        }
+        ROS_ERROR("Joint %s not calibrated for JointPositionController", joint_name.c_str());
+        return false;
       }
-    }
 
-    general_io_ = static_cast<ronex::GeneralIO*>( robot->model_->hw_->getCustomHW(path) );
-    if( general_io_ == NULL)
-    {
-      ROS_ERROR_STREAM("Could not find RoNeX module: " << ronex_id << " not loading the controller");
-      return false;
-    }
-
-    //init the subscribers
-    std::stringstream sub_topic;
-    for( size_t i=0; i < general_io_->command_.digital_.size(); ++i)
-    {
-      sub_topic.str("");
-      sub_topic << path << "/command/digital/" << i;
-      digital_subscribers_.push_back(node_.subscribe<std_msgs::Bool>(sub_topic.str(), 1, boost::bind(&GeneralIOPassthroughController::digital_commands_cb, this, _1,  i )));
-    }
-
-    for( size_t i=0; i < general_io_->command_.pwm_.size(); ++i)
-    {
-      sub_topic.str("");
-      sub_topic << path << "/command/pwm/" << i;
-      pwm_subscribers_.push_back(node_.subscribe<sr_ronex_msgs::PWM>(sub_topic.str(), 1, boost::bind(&GeneralIOPassthroughController::pwm_commands_cb, this, _1, i)));
-    }
+    upper_limit_ = joint_state_->joint_->limits->upper;
+    lower_limit_ = joint_state_->joint_->limits->lower;
+    command_ = 0;
 
     return true;
   }
 
-  void GeneralIOPassthroughController::starting()
+  bool PositionServoController::init(pr2_mechanism_model::RobotState *robot, ros::NodeHandle &n)
+  {
+    assert(robot);
+    node_ = n;
+  
+    std::string joint_name;
+
+    if (!node_.getParam("joint", joint_name)) {
+      ROS_ERROR("No joint given (namespace: %s)", node_.getNamespace().c_str());
+      return false;
+    }
+
+    sub_command_ = node_.subscribe<std_msgs::Float64>("command", 1, &PositionServoController::setCommandCB, this);
+  
+    return init(robot, joint_name);
+  }
+
+  void PositionServoController::setCommand(double cmd)
+  {
+    command_ = cmd;
+  }
+
+  void PositionServoController::getCommand(double & cmd)
+  {
+    cmd = command_;
+  }
+
+  void PositionServoController::setCommandCB(const std_msgs::Float64ConstPtr& msg)
+  {
+    command_ = msg->data;
+  }
+
+  void PositionServoController::starting()
   {}
 
   /*!
    * \brief Issues commands to the joint. Should be called at regular intervals
    */
-  void GeneralIOPassthroughController::update()
+  void PositionServoController::update()
   {
-/*
+
     if(loop_count_ % 10 == 0)
     {
       loop_count_ = 0;
     }
     loop_count_++;
-*/
+
+    double input = command_;
+    if      (input > upper_limit_) input = upper_limit_;
+    else if (input > lower_limit_) input = lower_limit_;
+
+
+    double input_range = (upper_limit_ - lower_limit_);
+
+    double output = ( (input - lower_limit_) / input_range * 200) - 100; // scales from range lower_limit_ -> upper_limit_ to output_lower_-> output_higher_ (-100 -> +100)
+
+    joint_state_->commanded_effort_ = output;
+
+    last_time_ = robot_->getTime();
+    joint_state_->position_ = input;
+
   }
 
-  void GeneralIOPassthroughController::digital_commands_cb(const std_msgs::BoolConstPtr& msg, int index)
-  {
-    general_io_->command_.digital_[index] = msg->data;
-  }
-
-  void GeneralIOPassthroughController::pwm_commands_cb(const sr_ronex_msgs::PWMConstPtr& msg, int index)
-  {
-
-    general_io_->command_.pwm_[index].period = msg->pwm_period;
-    general_io_->command_.pwm_[index].on_time_0 = msg->pwm_on_time_0;
-    general_io_->command_.pwm_[index].on_time_1 = msg->pwm_on_time_1;
-  }
 
 }
 
