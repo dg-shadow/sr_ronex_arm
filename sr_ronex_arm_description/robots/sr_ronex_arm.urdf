@@ -467,4 +467,17 @@
       velocity="0.05" />
     <mimic joint="gripper" multiplier="1" offset="0"/>
   </joint>
+
+ <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="base_joint_transmission">
+    <joint name="joint_1"/>
+    <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="0" scale="-0.002224924" offset="4.016"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_2_transmission">
+    <joint name="joint_2"/>
+    <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="1" scale="-0.002224924" offset="3.753"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_3_transmission">
+    <joint name="joint_3"/>
+    <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="2" scale="-0.002224924" offset="2.606"/>
+  </transmission>
 </robot>

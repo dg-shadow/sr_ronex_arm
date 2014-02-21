@@ -81,7 +81,7 @@ namespace ronex
         }
         else if( std::strcmp("servo", property) == 0 )
         {
-          ronex_mappings_.push_back( new mapping::general_io::CommandToServo(mapping_el, robot) ); // Could I pass some urdf values here?
+          ronex_mappings_.push_back( new mapping::general_io::CommandToServo(mapping_el, robot) );
         }
         else
           ROS_WARN_STREAM("Property not recognised: " << property);

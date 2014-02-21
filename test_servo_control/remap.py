@@ -8,9 +8,9 @@ class Mapper():
 	self.pub = rospy.Publisher("/ronex/general_io/10/command/pwm/0", PWM)
 
     def callback(self, data):
-        raw = data.analogue[0]
-        angle = 2*pi/4095*raw
-        self.output(angle)
+        raw = data.analogue[6]
+        effort = 200*raw/4095-100
+        self.output(effort)
         
 
     
@@ -19,21 +19,34 @@ class Mapper():
         rospy.Subscriber("/ronex/general_io/10/state", GeneralIOState, self.callback)
         rospy.spin()
         
-    def output (self, angle):
-        pwm_period = 64000
-        max_angle  = 2*pi
-        min_angle  = 0
-        max_pwm    = 12800
-        min_pwm    = 6400
-        
-        pwm_duty = (angle/ (max_angle-min_angle)) * (max_pwm - min_pwm) + min_pwm
+    def output (self, effort):
+        pwm_period = 64000.0
+        max_effort  = 100.0
+        min_effort  = -100.0
+        max_pwm    = 9400.0
+        min_pwm    = 9800.0
+        max_pwm    =  8000.0
+        min_pwm    = 11200.0
+        max_pwm    = 8000.0
+        min_pwm    = 11200.0
+        max_pwm    = 13300.0
+        min_pwm    = 4100.0
+        max_pwm    = 15200.0
+        min_pwm    = 3100.0
+        max_pwm    = 4400.0
+        min_pwm    = 13700.0
+    
+
+
+        pwm_duty = ( ( effort - min_effort ) / (max_effort-min_effort)) * (max_pwm - min_pwm) + min_pwm
         
         print pwm_duty
         
         pwm = PWM()
         pwm.pwm_period = pwm_period
-        pwm.pwm_on_time_0 = pwm_duty
+        pwm.pwm_on_time_0 = int(pwm_duty)
         pwm.pwm_on_time_1 = 0
+        print effort, pwm_duty
         self.pub.publish(pwm)
         
         

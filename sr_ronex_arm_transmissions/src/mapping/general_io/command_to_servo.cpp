@@ -179,8 +179,7 @@ namespace ronex
 	if      (effort >  100.0) effort =  100.0;
 	else if (effort < -100.0) effort = -100.0;
 
-	return ( (effort + 100) / 200) * (max_on_time_ - min_on_time_) + min_on_time_;
-
+	return (unsigned short int) ( ( (effort + 100.0) / 200.0 ) * double(max_on_time_ - min_on_time_) + double(min_on_time_) );
       }
     }
   }
