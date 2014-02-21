@@ -35,6 +35,7 @@ namespace ronex
        CommandToServo::CommandToServo(TiXmlElement* mapping_el, pr2_mechanism_model::Robot* robot)
         : RonexMapping(), pin_out_of_bound_(true)
       {
+
         const char *ronex_name = mapping_el ? mapping_el->Attribute("ronex") : NULL;
         if (!ronex_name)
         {
@@ -108,9 +109,9 @@ namespace ronex
           ROS_ERROR("RonexArmTransmission transmission did not specify the min ontime");
           return;
         }
-	try
+	    try
         {
-          min_on_time_ = boost::lexical_cast<long int>( min_on_time_ );
+          min_on_time_ = boost::lexical_cast<long int>( min_on_time );
         }
         catch( boost::bad_lexical_cast const& )
         {
@@ -162,24 +163,26 @@ namespace ronex
       void CommandToServo::propagateToRonex(std::vector<pr2_mechanism_model::JointState*>& js)
       {
         assert(js.size() == 1);
-
         if( check_pins_in_bound_() )
         {
-	  unsigned short int on_time = compute_on_time_(js[0]->commanded_effort_);
+	      unsigned short int on_time = compute_on_time_(js[0]->commanded_effort_);
+          general_io_->command_.pwm_[pwm_module_].period = 64000;
 
           if( pwm_pin_index_ == 0 )
             general_io_->command_.pwm_[pwm_module_].on_time_0 = on_time;
           else
             general_io_->command_.pwm_[pwm_module_].on_time_1 = on_time;
+
+  
        }
 
       }
       unsigned short int CommandToServo::compute_on_time_ (double & effort)
       {
-	if      (effort >  100.0) effort =  100.0;
-	else if (effort < -100.0) effort = -100.0;
+        if      (effort >  100.0) effort =  100.0;
+        else if (effort < -100.0) effort = -100.0;
 
-	return (unsigned short int) ( ( (effort + 100.0) / 200.0 ) * double(max_on_time_ - min_on_time_) + double(min_on_time_) );
+        return (unsigned short int) ( ( (effort + 100.0) / 200.0 ) * double(max_on_time_ - min_on_time_) + double(min_on_time_) );
       }
     }
   }

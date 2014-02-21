@@ -95,12 +95,13 @@
     <limit
       lower="-2.3"
       upper="2.3"
-      effort="0"
+      effort="100"
       velocity="3" />
-    <safety_controller
+<!--    <safety_controller
       soft_upper="2"
       soft_lower="-2"
-      k_velocity="0" />
+      k_velocity="3"
+     /> -->
   </joint>
   <link
     name="link_2">
@@ -157,12 +158,12 @@
     <limit
       lower="-1.57"
       upper="2.36"
-      effort="0"
+      effort="100.0"
       velocity="3" />
-    <safety_controller
+<!--    <safety_controller
       soft_upper="2.3"
       soft_lower="-1.5"
-      k_velocity="0" />
+      k_velocity="0" /> -->
   </joint>
   <link
     name="link_3">
@@ -219,12 +220,12 @@
     <limit
       lower="-2.4"
       upper="2.4"
-      effort="0"
+      effort="100"
       velocity="3" />
-    <safety_controller
+<!--    <safety_controller
       soft_upper="-2.2"
       soft_lower="-2.2"
-      k_velocity="0" />
+      k_velocity="0" />-->
   </joint>
   <link
     name="link_4">
@@ -468,16 +469,34 @@
     <mimic joint="gripper" multiplier="1" offset="0"/>
   </joint>
 
- <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="base_joint_transmission">
+ <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_1_transmission">
     <joint name="joint_1"/>
     <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="0" scale="-0.002224924" offset="4.016"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="0" pwm_pin="0" max_on_time="9200" min_on_time="10000"/>
   </transmission>
-  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_2_transmission">
+ <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_2_transmission">
     <joint name="joint_2"/>
     <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="1" scale="-0.002224924" offset="3.753"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="0" pwm_pin="1" max_on_time="8000" min_on_time="11200"/>
   </transmission>
   <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_3_transmission">
     <joint name="joint_3"/>
     <mapping ronex="/ronex/general_io/10" property="position" analogue_pin="2" scale="-0.002224924" offset="2.606"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="1" pwm_pin="0" min_on_time="8000" max_on_time="11200"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_4_transmission">
+    <joint name="joint_4"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="1" pwm_pin="1"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="joint_5_transmission">
+    <joint name="joint_5"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="2" pwm_pin="0"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="gripper_transmission">
+    <joint name="gripper"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="2" pwm_pin="1"/>
+  </transmission>
+  <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="gripper_2_transmission">
+    <joint name="gripper_2"/>
   </transmission>
 </robot>
