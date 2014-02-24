@@ -1,0 +1,63 @@
+joint_1_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: joint_1
+
+joint_2_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: joint_2
+
+joint_3_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: joint_3
+
+joint_4_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: joint_4
+
+joint_5_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: joint_5
+
+gripper_fake_calib:
+  type: sr_ronex_controllers/FakeCalibrationController
+  joint: gripper
+
+joint_1_controller:
+  type: robot_mechanism_controllers/JointPositionController
+  joint: joint_1
+  pid: &joint_1_gains
+    p: 200.0
+    d: 0.0
+    i: 10.0
+    i_clamp: 100.0
+
+joint_2_controller:
+  type: robot_mechanism_controllers/JointPositionController
+  joint: joint_2
+  pid: &joint_2_gains
+    p: 200.0
+    d: 200.0
+    i: 100.0
+    i_clamp: 200.0
+
+joint_3_controller:
+  type: robot_mechanism_controllers/JointPositionController
+  joint: joint_3
+  pid: &joint_3_gains
+    p: 200.0
+    d: 100.0
+    i: 200.0
+    i_clamp: 200.0
+
+joint_4_controller:
+  type: sr_ronex_arm_controllers/PositionServoController
+  joint: joint_4
+
+joint_5_controller:
+  type: sr_ronex_arm_controllers/PositionServoController
+  joint: joint_5
+
+gripper_controller:
+  type: sr_ronex_arm_controllers/PositionServoController
+  joint: gripper
+

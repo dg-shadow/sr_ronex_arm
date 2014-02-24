@@ -1,0 +1,40 @@
+<launch>
+  <!-- Load the robot description -->
+
+  <rosparam command="load" file="$(find sr_ronex_arm_description)/controllers.yaml" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find sr_ronex_arm_description)/robots/sr_ronex_arm.urdf'" />
+ 
+  <node name="fake_calib_controllers_spawner"
+        pkg="pr2_controller_manager" type="spawner" output="screen"
+        args="gripper_fake_calib joint_5_fake_calib joint_4_fake_calib joint_3_fake_calib joint_2_fake_calib joint_1_fake_calib" />
+
+  <node name="joint_controllers_spawner"
+        pkg="pr2_controller_manager" type="spawner" output="screen"
+        args="--wait-for=calibrated joint_1_controller joint_2_controller joint_3_controller gripper_controller" />
+
+
+  <!-- Allows to specify the ethernet interface to be used. It defaults to the value of the env var ETHERCAT_PORT -->
+  <arg name="ethercat_port" default="$(optenv ETHERCAT_PORT eth0)" />
+
+  <param name="/ronex/general_io/10/input_mode_0"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/input_mode_1"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/input_mode_2"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/input_mode_3"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/input_mode_4"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/input_mode_5"      type="bool" value="false"/>
+  <param name="/ronex/general_io/10/pwm_clock_divider" type="int"  value="10"   />
+
+
+  <!-- Start the ronex driver -->
+  <node name="ronex" pkg="pr2_ethercat" type="pr2_ethercat" args="-i $(arg ethercat_port) -r /robot_description" output="screen"  launch-prefix="nice -n -20"/>
+
+  <!-- publishes tf from joint states to be able to view in rviz -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+<!--
+  <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_i10" args="set /ronex/general_io/10 input_mode_0 false" />
+  <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_i110" args="set /ronex/general_io/10 input_mode_1 false" />
+  <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_i210" args="set /ronex/general_io/10 input_mode_2 false" />
+  <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_icl" args="set /ronex/general_io/10 pwm_clock_divider 10" />
+  -->
+</launch>
