@@ -41,7 +41,9 @@ namespace ronex
   {
     assert(robot);
 
-    last_time_ = robot->getTime();
+    robot_ = robot;
+
+    last_time_ = robot_->getTime();
     joint_state_ = robot_->getJointState(joint_name);
 
     if (!joint_state_)
@@ -59,6 +61,7 @@ namespace ronex
 
     upper_limit_ = joint_state_->joint_->limits->upper;
     lower_limit_ = joint_state_->joint_->limits->lower;
+
     command_ = 0;
 
     return true;
@@ -77,8 +80,10 @@ namespace ronex
     }
 
     sub_command_ = node_.subscribe<std_msgs::Float64>("command", 1, &PositionServoController::setCommandCB, this);
-  
+
+
     return init(robot, joint_name);
+
   }
 
   void PositionServoController::setCommand(double cmd)
@@ -105,15 +110,17 @@ namespace ronex
   void PositionServoController::update()
   {
 
+
     if(loop_count_ % 10 == 0)
     {
       loop_count_ = 0;
     }
     loop_count_++;
 
+
     double input = command_;
     if      (input > upper_limit_) input = upper_limit_;
-    else if (input > lower_limit_) input = lower_limit_;
+    else if (input < lower_limit_) input = lower_limit_;
 
 
     double input_range = (upper_limit_ - lower_limit_);
@@ -125,8 +132,8 @@ namespace ronex
     last_time_ = robot_->getTime();
     joint_state_->position_ = input;
 
+ 
   }
-
 
 }
 

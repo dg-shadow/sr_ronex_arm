@@ -172,7 +172,6 @@ namespace ronex
             general_io_->command_.pwm_[pwm_module_].on_time_0 = on_time;
           else
             general_io_->command_.pwm_[pwm_module_].on_time_1 = on_time;
-
   
        }
 

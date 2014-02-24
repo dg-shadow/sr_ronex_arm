@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import rospy
 from math import pi
 from sr_ronex_msgs.msg import GeneralIOState, PWM
@@ -23,24 +25,23 @@ class Mapper():
         pwm_period = 64000.0
         max_effort  = 100.0
         min_effort  = -100.0
-        max_pwm    = 9400.0
-        min_pwm    = 9800.0
-        max_pwm    =  8000.0
-        min_pwm    = 11200.0
-        max_pwm    = 8000.0
-        min_pwm    = 11200.0
-        max_pwm    = 13300.0
-        min_pwm    = 4100.0
-        max_pwm    = 15200.0
-        min_pwm    = 3100.0
-        max_pwm    = 4400.0
-        min_pwm    = 13700.0
+        max_pwm    = 9200.0
+        min_pwm    = 10000.0
+#        max_pwm    =  8000.0
+#        min_pwm    = 11200.0
+#        max_pwm    = 8000.0
+#        min_pwm    = 11200.0
+#        max_pwm    = 13300.0
+#        min_pwm    = 4100.0
+#        max_pwm    = 15200.0
+#        min_pwm    = 3100.0
+#        max_pwm    = 4400.0
+#        min_pwm    = 13700.0
     
-
 
         pwm_duty = ( ( effort - min_effort ) / (max_effort-min_effort)) * (max_pwm - min_pwm) + min_pwm
         
-        print pwm_duty
+        print pwm_duty, effort
         
         pwm = PWM()
         pwm.pwm_period = pwm_period
