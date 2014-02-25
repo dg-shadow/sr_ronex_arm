@@ -65,7 +65,7 @@ namespace ronex
     pr2_mechanism_model::RobotState *robot_;
     ros::Time last_time_;
     bool initialised_;
-ros::Subscriber sub_command_;
+    ros::Subscriber sub_command_;
   };
 }
 

@@ -1,7 +1,11 @@
-<library path="lib/libsr_ronex_controllers">
+<library path="lib/libsr_ronex_arm_controllers">
 
   <class name="sr_ronex_arm_controllers/PositionServoController"
          type="ronex::PositionServoController"
+         base_class_type="pr2_controller_interface::Controller" />
+
+  <class name="sr_ronex_arm_controllers/PositionVelocityController"
+         type="ronex::PositionVelocityController"
          base_class_type="pr2_controller_interface::Controller" />
 
 </library>

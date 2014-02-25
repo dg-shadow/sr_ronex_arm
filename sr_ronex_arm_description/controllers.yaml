@@ -23,11 +23,16 @@ gripper_fake_calib:
   joint: gripper
 
 joint_1_controller:
-  type: robot_mechanism_controllers/JointPositionController
+  type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_1
-  pid: &joint_1_gains
-    p: 2000.0
-    d: 8000.0
+  vpid: &joint_1_v_gains
+    p: 200.0
+    d: 00.0
+    i: 00.0
+    i_clamp: 100.0
+  ppid: &joint_1_p_gains
+    p: 1.5
+    d: 0
     i: 00.0
     i_clamp: 100.0
 

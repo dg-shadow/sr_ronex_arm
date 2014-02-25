@@ -4,7 +4,7 @@ project(sr_ronex_arm_controllers)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs std_srvs sr_ronex_msgs sr_ronex_hardware_interface sr_ronex_utilities pluginlib pr2_controller_interface realtime_tools)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs std_srvs sr_ronex_msgs sr_ronex_hardware_interface sr_ronex_utilities pluginlib pr2_controller_interface realtime_tools control_toolbox)
 
 include_directories( include ${catkin_INCLUDE_DIRS})
 
@@ -14,13 +14,13 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
-add_library(sr_ronex_arm_controllers src/position_servo_controller.cpp)
+add_library(sr_ronex_arm_controllers src/position_servo_controller.cpp src/position_velocity_controller.cpp)
 target_link_libraries(sr_ronex_arm_controllers ${catkin_LIBRARIES})
 
 
 # catkin_package parameters: http://ros.org/doc/groovy/api/catkin/html/dev_guide/generated_cmake_api.html#catkin-package
 catkin_package(
-    CATKIN_DEPENDS roscpp std_msgs std_srvs sr_ronex_msgs sr_ronex_hardware_interface pr2_mechanism_controllers pr2_controller_interface pr2_mechanism_model pluginlib sr_ronex_controllers
+    CATKIN_DEPENDS roscpp std_msgs std_srvs sr_ronex_msgs sr_ronex_hardware_interface pr2_mechanism_controllers pr2_controller_interface pr2_mechanism_model pluginlib sr_ronex_controllers control_toolbox
     INCLUDE_DIRS include
     LIBRARIES sr_ronex_arm_controllers
 )

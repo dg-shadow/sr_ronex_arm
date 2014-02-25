@@ -15,7 +15,7 @@
 
 
   <!-- Allows to specify the ethernet interface to be used. It defaults to the value of the env var ETHERCAT_PORT -->
-  <arg name="ethercat_port" default="$(optenv ETHERCAT_PORT eth0)" />
+  <arg name="ethercat_port" default="$(optenv ETHERCAT_PORT eth1)" />
 
   <param name="/ronex/general_io/10/input_mode_0"      type="bool" value="false"/>
   <param name="/ronex/general_io/10/input_mode_1"      type="bool" value="false"/>
