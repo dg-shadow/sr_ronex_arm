@@ -156,10 +156,10 @@
     <axis
       xyz="0 -1 0" />
     <limit
-      lower="-1.57"
-      upper="2.36"
+      lower="-1.5"
+      upper="1.5"
       effort="100.0"
-      velocity="3" />
+      velocity=".5" />
 <!--    <safety_controller
       soft_upper="2.3"
       soft_lower="-1.5"
@@ -494,7 +494,7 @@
   </transmission>
   <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="gripper_transmission">
     <joint name="gripper"/>
-    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="2" pwm_pin="1" max_on_time="4400" min_on_time="13500"/>
+    <mapping ronex="/ronex/general_io/10" property="servo" pwm_module="2" pwm_pin="1" max_on_time="4400" min_on_time="13200"/>
   </transmission>
   <transmission type="sr_ronex_arm_transmissions/RonexArmTransmission" name="gripper_2_transmission">
     <joint name="gripper_2"/>

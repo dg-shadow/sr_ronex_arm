@@ -119,7 +119,6 @@ namespace ronex
           return;
         }
 
-
       }
 
       CommandToServo::~CommandToServo()
