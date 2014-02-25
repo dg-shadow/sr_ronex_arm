@@ -159,7 +159,7 @@
       lower="-1.5"
       upper="1.5"
       effort="100.0"
-      velocity=".5" />
+      velocity="1" />
 <!--    <safety_controller
       soft_upper="2.3"
       soft_lower="-1.5"
@@ -221,7 +221,7 @@
       lower="-2.4"
       upper="2.4"
       effort="100"
-      velocity="3" />
+      velocity="1" />
 <!--    <safety_controller
       soft_upper="-2.2"
       soft_lower="-2.2"

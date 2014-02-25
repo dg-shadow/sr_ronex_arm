@@ -50,29 +50,19 @@ joint_2_controller:
     i: 0
     i_clamp: 100.0
 
-
-#    p: 1
-#    d: 0.1
-#    i: 00.0
-#    i_clamp: 100.0
-
-#joint_2_controller:
-#  type: robot_mechanism_controllers/JointPositionController
-#  joint: joint_2
-#  pid: &joint_2_gains
-#    p: 200.0
-#    d: 200.0
-#    i: 100.0
-#    i_clamp: 200.0
-
 joint_3_controller:
-  type: robot_mechanism_controllers/JointPositionController
+  type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_3
-  pid: &joint_3_gains
-    p: 200.0
-    d: 100.0
-    i: 200.0
-    i_clamp: 200.0
+  vpid: &joint_3_v_gains
+    p: 00.0
+    d:  0.0
+    i: 100.0
+    i_clamp: 100.0
+  ppid: &joint_3_p_gains
+    p: 02
+    d: 0
+    i: 0
+    i_clamp: 100.0
 
 joint_4_controller:
   type: sr_ronex_arm_controllers/PositionServoController
