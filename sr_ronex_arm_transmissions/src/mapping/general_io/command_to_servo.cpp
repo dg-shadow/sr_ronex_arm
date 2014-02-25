@@ -165,7 +165,7 @@ namespace ronex
         if( check_pins_in_bound_() )
         {
 	      unsigned short int on_time = compute_on_time_(js[0]->commanded_effort_);
-          general_io_->command_.pwm_[pwm_module_].period = 64000;
+          general_io_->command_.pwm_[pwm_module_].period = 10000;
 
           if( pwm_pin_index_ == 0 )
             general_io_->command_.pwm_[pwm_module_].on_time_0 = on_time;

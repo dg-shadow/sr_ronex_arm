@@ -26,15 +26,29 @@ joint_1_controller:
   type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_1
   vpid: &joint_1_v_gains
-    p: 200.0
+    p: 100.0
     d: 00.0
-    i: 00.0
-    i_clamp: 100.0
+    i: 4.0
+    i_clamp: 20.0
   ppid: &joint_1_p_gains
-    p: 1.5
-    d: 0
-    i: 00.0
+    p: 2.5
+    d: 0.1
+    i: 0.0
     i_clamp: 100.0
+
+#joint_2_controller:
+#  type: sr_ronex_arm_controllers/PositionVelocityController
+#  joint: joint_2
+#  vpid: &joint_2_v_gains
+#    p: 200.0
+#    d: 00.0
+#    i: 00.0
+#    i_clamp: 100.0
+#  ppid: &joint_2_p_gains
+#    p: 1.5
+#    d: 0
+#    i: 00.0
+#    i_clamp: 100.0
 
 joint_2_controller:
   type: robot_mechanism_controllers/JointPositionController

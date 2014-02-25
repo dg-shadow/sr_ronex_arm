@@ -23,7 +23,7 @@
   <param name="/ronex/general_io/10/input_mode_3"      type="bool" value="false"/>
   <param name="/ronex/general_io/10/input_mode_4"      type="bool" value="false"/>
   <param name="/ronex/general_io/10/input_mode_5"      type="bool" value="false"/>
-  <param name="/ronex/general_io/10/pwm_clock_divider" type="int"  value="10"   />
+  <param name="/ronex/general_io/10/pwm_clock_divider" type="int"  value="100"   />
 
 
   <!-- Start the ronex driver -->
