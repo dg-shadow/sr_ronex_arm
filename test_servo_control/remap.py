@@ -22,11 +22,11 @@ class Mapper():
         rospy.spin()
         
     def output (self, effort):
-        pwm_period = 64000.0
+        pwm_period = 6400.0
         max_effort  = 100.0
         min_effort  = -100.0
-        max_pwm    = 9200.0
-        min_pwm    = 10000.0
+        max_pwm    = 920.0
+        min_pwm    = 1000.0
 #        max_pwm    =  8000.0
 #        min_pwm    = 11200.0
 #        max_pwm    = 8000.0

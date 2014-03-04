@@ -60,7 +60,6 @@ void PositionVelocityController::starting()
     velocity_buffer_[velocity_index_] = 0.0;
   velocity_sum_ = 0;
   last_position_ = command_;
-  joint_state_->commanded_effort_ += effort_demand;
 }
 
 bool PositionVelocityController::init(pr2_mechanism_model::RobotState *robot, ros::NodeHandle &n)
