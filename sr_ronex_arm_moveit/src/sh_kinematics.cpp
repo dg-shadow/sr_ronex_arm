@@ -38,7 +38,7 @@ ShKinematics::ShKinematics()
   // using data from the robot's joints and the sensors on the robot.
   planning_scene_.reset(new planning_scene::PlanningScene(kinematic_model_));
 
-  robot_state_publisher_ = nh_.advertise<moveit_msgs::DisplayRobotState>("sh_robot_state", 1);
+  robot_state_publisher_ = nh_.advertise<moveit_msgs::DisplayRobotState>("sr_ronex_arm_state", 1);
 }
 
 //-------------------------------------------------------------------------------

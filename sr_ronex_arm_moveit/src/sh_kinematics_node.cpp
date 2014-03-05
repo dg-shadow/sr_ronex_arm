@@ -33,7 +33,7 @@ int main(int argc, char **argv)
   ShKinematics sh_kinematics;
 
   // Select the group...
-  const std::string group_name("index_finger_thumb");
+  const std::string group_name("the_arm");
 
   // Get params...
   int no_of_samples;
