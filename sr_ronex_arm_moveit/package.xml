@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package>
+  <name>sr_ronex_arm_moveit</name>
+  <version>0.0.0</version>
+  <description>The sr_ronex_arm_moveit package</description>
+
+  <!-- One maintainer tag required, multiple allowed, one person per tag -->
+  <maintainer email="software@shadowrobot.com">Shadow Robot's software team</maintainer>
+
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>LGPLv3</license>
+
+  <!-- Author tags are optional, mutiple are allowed, one per tag -->
+  <!-- Authors do not have to be maintianers, but could be -->
+  <author email="yi@shadowrobot.com">Yi Li</author>
+
+  <!-- http://wiki.ros.org/pcl/Tutorials -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>pluginlib</build_depend>
+  <build_depend>moveit_core</build_depend>
+  <build_depend>moveit_ros_planning_interface</build_depend>
+  <build_depend>moveit_ros_perception</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslib</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>genmsg</build_depend>
+  <build_depend>rostest</build_depend>
+
+  <run_depend>pluginlib</run_depend>
+  <run_depend>moveit_core</run_depend>
+  <run_depend>moveit_ros_planning_interface</run_depend>
+  <run_depend>moveit_ros_perception</run_depend>
+  <run_depend>message_runtime</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>roslib</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>genmsg</run_depend>
+  <run_depend>rostest</run_depend>
+
+</package>

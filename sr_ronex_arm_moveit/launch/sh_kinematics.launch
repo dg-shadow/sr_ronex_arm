@@ -1,0 +1,9 @@
+<launch>
+  <include file="$(find sh_moveit_config)/launch/demo.launch"/>
+  <node name="sh_kinematics_node" pkg="sr_remap" type="sh_kinematics_node" respawn="false" output="screen">
+    <param name="no_of_samples" value="10"/>
+    <param name="conf_distance" value="0.1"/>
+    <param name="visualize" value="true"/>
+    <param name="visu_loop_rate" value="1.0"/>
+  </node>
+</launch>
