@@ -107,8 +107,7 @@ link_directories(${catkin_LIBRARY_DIRS})
 
 ## Declare a cpp executable: sr_ronex_arm_moveit_node
 add_executable(sr_ronex_arm_moveit_node
-  src/sh_kinematics_node.cpp
-  src/sh_kinematics.cpp
+  src/sr_ronex_arm_moveit_node.cpp
 )
 target_link_libraries(sr_ronex_arm_moveit_node
   ${catkin_LIBRARIES}

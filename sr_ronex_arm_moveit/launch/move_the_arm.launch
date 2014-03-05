@@ -1,9 +1,5 @@
 <launch>
   <include file="$(find sr_ronex_arm_moveit_config)/launch/demo.launch"/>
   <node name="sr_ronex_arm_moveit_node" pkg="sr_ronex_arm_moveit" type="sr_ronex_arm_moveit_node" respawn="false" output="screen">
-    <param name="no_of_samples" value="1000"/>
-    <param name="conf_distance" value="0.1"/>
-    <param name="visualize" value="true"/>
-    <param name="visu_loop_rate" value="1.0"/>
   </node>
 </launch>

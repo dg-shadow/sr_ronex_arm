@@ -1,5 +1,5 @@
 /**
- * @file   sh_kinematics_node.cpp
+ * @file   sr_ronex_arm_moveit_node.cpp
  * @author Yi Li <yi@shadowrobot.com>
  *
  * Copyright (c) 2014 Shadow Robot Company Ltd.
@@ -8,57 +8,33 @@
  * This code is proprietary and may not be used, copied, distributed without
  *  prior authorisation and agreement from Shadow Robot Company Ltd.
  *
- * @brief A node that maps human hand poses to robotic hand poses.
+ * @brief Move the "the_arm" group.
  *
  *
  */
 
-#include "sr_ronex_arm_moveit/sh_kinematics.hpp"
-
-using namespace shadowrobot;
+#include <moveit/move_group_interface/move_group.h>
 
 //-------------------------------------------------------------------------------
 
 int main(int argc, char **argv)
 {
   std::string node_name("sr_ronex_arm_moveit_node");
-  ros::init(argc, argv, node_name);
+  ros::init(argc, argv, node_name, ros::init_options::AnonymousName);
+  // start a ROS spinning thread
   ros::AsyncSpinner spinner(1);
   spinner.start();
 
-  // This sleep is ONLY to allow Rviz to come up
-  sleep(10.0);
+  // Sleep for a few second and wait for RViz.
+  ros::Duration(12.0).sleep();
 
-  // Call the constructor!
-  ShKinematics sh_kinematics;
-
-  // Select the group...
-  const std::string group_name("the_arm");
-
-  // Get params...
-  int no_of_samples;
-  double conf_distance;
-  bool visualize;
-  double visu_loop_rate;
-  ros::param::get("/" + node_name + "/no_of_samples", no_of_samples);
-  ros::param::get("/" + node_name + "/conf_distance", conf_distance);
-  ros::param::get("/" + node_name + "/visualize", visualize);
-  ros::param::get("/" + node_name + "/visu_loop_rate", visu_loop_rate);
-
-  sh_kinematics.sample_random_positions(group_name,
-                                        no_of_samples,
-                                        visualize,
-                                        visu_loop_rate);
-
-  sh_kinematics.sample_random_positions_near_by(group_name,
-                                                no_of_samples,
-                                                conf_distance,
-                                                visualize,
-                                                visu_loop_rate);
-
-  // Shutdown ROS
-  ros::shutdown();
-  return 0;
+  // this connecs to a running instance of the move_group node
+  move_group_interface::MoveGroup group("the_arm");
+  // specify that our target will be a random one
+  group.setRandomTarget();
+  // plan the motion and then move the group to the sampled target
+  group.move();
+  ros::waitForShutdown();
 }
 
 //-------------------------------------------------------------------------------

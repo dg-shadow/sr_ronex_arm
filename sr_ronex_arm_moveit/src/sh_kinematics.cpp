@@ -49,6 +49,59 @@ ShKinematics::~ShKinematics()
 
 //-------------------------------------------------------------------------------
 
+void ShKinematics::run(void)
+{
+  this->inverse_kinematics();
+
+  ros::Rate r(10);
+  while (ros::ok())
+  {
+    ros::spinOnce(); // Handle ROS events
+    r.sleep();
+  }
+}
+
+//-------------------------------------------------------------------------------
+
+void ShKinematics::inverse_kinematics(void)
+{
+  std::string group_name("the_arm");
+  const robot_state::JointModelGroup* joint_model_group = kinematic_model_->getJointModelGroup(group_name);
+
+  /* Compute FK for a set of random joint values*/
+  kinematic_state_->setToRandomPositions(joint_model_group);
+  const Eigen::Affine3d &end_effector_state = kinematic_state_->getGlobalLinkTransform("link_5");
+
+  /* Get the joint values*/
+  std::vector<double> joint_values;
+  kinematic_state_->copyJointGroupPositions(joint_model_group, joint_values);
+  for(std::size_t i=0; i < joint_values.size(); ++i)
+  {
+    ROS_INFO("Joint (FK): %f", joint_values[i]);
+  }
+
+  ROS_ERROR_STREAM("+++++++++++++++++++++++++++++++++++");
+  /* Inverse Kinematics */
+  bool found_ik = kinematic_state_->setFromIK(joint_model_group, end_effector_state, 10, 0.1);
+  ROS_ERROR_STREAM("+++++++++++++++++++++++++++++++++++");
+
+  if (found_ik)
+  {
+    kinematic_state_->copyJointGroupPositions(joint_model_group, joint_values);
+    for(std::size_t i=0; i < joint_values.size(); ++i)
+    {
+      ROS_INFO("Joint (IK): %f", joint_values[i]);
+    }
+  }
+  else
+  {
+    ROS_INFO("Did not find IK solution");
+  }
+  ROS_ERROR_STREAM("+++++++++++++++++++++++++++++++++++");
+}
+
+//-------------------------------------------------------------------------------
+
 void ShKinematics::sample_random_positions(const std::string group_name,
                                            const unsigned int no_of_samples,
                                            bool visualize,
