@@ -59,6 +59,10 @@ namespace ronex
         return false;
       }
 
+    state_publisher_.reset(
+			   new realtime_tools::RealtimePublisher<pr2_controllers_msgs::JointControllerState>
+			   (node_, "state", 1));
+
     upper_limit_ = joint_state_->joint_->limits->upper;
     lower_limit_ = joint_state_->joint_->limits->lower;
 
@@ -104,23 +108,43 @@ namespace ronex
   void PositionServoController::starting()
   {}
 
-  /*!
+  /*
    * \brief Issues commands to the joint. Should be called at regular intervals
    */
   void PositionServoController::update()
   {
+    ros::Time now = robot_->getTime();
+    dt_ = now - last_time_;
 
 
-    if(loop_count_ % 10 == 0)
-    {
-      loop_count_ = 0;
-    }
-    loop_count_++;
 
+    
+    double max_step = joint_state_->joint_->limits->velocity * dt_.toSec();
 
     double input = command_;
     if      (input > upper_limit_) input = upper_limit_;
     else if (input < lower_limit_) input = lower_limit_;
+
+    if      (input > joint_state_->position_ + max_step) input = joint_state_->position_ + max_step;
+    else if (input < joint_state_->position_ - max_step) input = joint_state_->position_ - max_step;
+
+    if(loop_count_ % 10 == 0)
+    {
+      loop_count_ = 0;
+      if(state_publisher_ && state_publisher_->trylock())
+	{
+	  state_publisher_->msg_.header.stamp = now;
+	  state_publisher_->msg_.set_point = command_;
+	  state_publisher_->msg_.process_value = joint_state_->position_;
+	  state_publisher_->msg_.error = 0;
+	  state_publisher_->msg_.time_step = dt_.toSec();
+	  state_publisher_->msg_.command = input;
+	 
+	  state_publisher_->unlockAndPublish();
+	}
+      
+    }
+    loop_count_++;    
 
 
     double input_range = (upper_limit_ - lower_limit_);

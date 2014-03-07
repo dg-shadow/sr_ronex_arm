@@ -22,12 +22,12 @@ gripper_fake_calib:
   type: sr_ronex_controllers/FakeCalibrationController
   joint: gripper
 
-joint_1_controller:
+joint_1_position_controller:
   type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_1
   vpid: &joint_1_v_gains
-    p: 000.0
-    d: 00.0
+    p: 001.0
+    d: 0.0
     i: 500.0
     i_clamp: 150.0
   ppid: &joint_1_p_gains
@@ -36,13 +36,13 @@ joint_1_controller:
     i: 0.0
     i_clamp: 100.0
 
-joint_2_controller:
+joint_2_position_controller:
   type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_2
   vpid: &joint_2_v_gains
-    p: 00.0
-    d:  0.0
-    i: 100.0
+    p: 04.0
+    d:  0.001
+    i: 150.0
     i_clamp: 100.0
   ppid: &joint_2_p_gains
     p: 01
@@ -50,12 +50,12 @@ joint_2_controller:
     i: 0
     i_clamp: 100.0
 
-joint_3_controller:
+joint_3_position_controller:
   type: sr_ronex_arm_controllers/PositionVelocityController
   joint: joint_3
   vpid: &joint_3_v_gains
-    p: 00.0
-    d:  0.0
+    p: 01.0
+    d:  0.001
     i: 100.0
     i_clamp: 100.0
   ppid: &joint_3_p_gains
@@ -64,15 +64,15 @@ joint_3_controller:
     i: 0
     i_clamp: 100.0
 
-joint_4_controller:
+joint_4_position_controller:
   type: sr_ronex_arm_controllers/PositionServoController
   joint: joint_4
 
-joint_5_controller:
+joint_5_position_controller:
   type: sr_ronex_arm_controllers/PositionServoController
   joint: joint_5
 
-gripper_controller:
+gripper_position_controller:
   type: sr_ronex_arm_controllers/PositionServoController
   joint: gripper
 

@@ -36,6 +36,12 @@
 #include <std_msgs/Float64.h>
 #include <sr_ronex_msgs/PWM.h>
 
+#include <boost/scoped_ptr.hpp>
+#include <boost/thread/condition.hpp>
+//Realtime publisher
+#include <pr2_controllers_msgs/JointControllerState.h>
+#include <realtime_tools/realtime_publisher.h>
+
 namespace ronex
 {
   class PositionServoController
@@ -58,7 +64,7 @@ namespace ronex
 
   private:
     ros::NodeHandle node_;
-
+    ros::Duration dt_;
     int loop_count_;
     double upper_limit_, lower_limit_, command_;
     pr2_mechanism_model::JointState *joint_state_; 
@@ -66,6 +72,9 @@ namespace ronex
     ros::Time last_time_;
     bool initialised_;
     ros::Subscriber sub_command_;
+    boost::scoped_ptr<
+      realtime_tools::RealtimePublisher<
+	pr2_controllers_msgs::JointControllerState> > state_publisher_ ;
   };
 }
 

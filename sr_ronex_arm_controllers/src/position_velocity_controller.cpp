@@ -93,11 +93,11 @@ ROS_INFO("%s", joint_name.c_str());
 
   position_state_publisher_.reset(
     new realtime_tools::RealtimePublisher<pr2_controllers_msgs::JointControllerState>
-    (node_, "position_loop_state", 1));
+    (node_, "state", 1));
 
   velocity_state_publisher_.reset(
     new realtime_tools::RealtimePublisher<pr2_controllers_msgs::JointControllerState>
-    (node_, "velocity_loop_state", 1));
+    (node_, "velocity/state", 1));
 
 
   sub_command_ = node_.subscribe<std_msgs::Float64>("command", 1, &PositionVelocityController::setCommandCB, this);

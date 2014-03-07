@@ -23,16 +23,16 @@ class Mapper():
         
     def output (self, effort):
         pwm_period = 6400.0
-        max_effort  = 100.0
-        min_effort  = -100.0
-        max_pwm    = 920.0
-        min_pwm    = 1000.0
+#        max_effort  = 100.0
+#        min_effort  = -100.0
+#        max_pwm    = 920.0
+#        min_pwm    = 1000.0
 #        max_pwm    =  8000.0
 #        min_pwm    = 11200.0
 #        max_pwm    = 8000.0
 #        min_pwm    = 11200.0
-#        max_pwm    = 13300.0
-#        min_pwm    = 4100.0
+         max_pwm    = 1330.0
+         min_pwm    = 410.0
 #        max_pwm    = 15200.0
 #        min_pwm    = 3100.0
 #        max_pwm    = 4400.0

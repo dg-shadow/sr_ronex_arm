@@ -39,8 +39,8 @@ class Script():
         for x in range(0,3):
             self.pub[x].publish(self.start_values[x]);
 
-        sleep(1)
-        sleep(3)
+        rospy.sleep(3)
+
         t = 0
 
         while (t <= 5):
@@ -48,8 +48,16 @@ class Script():
                 value = t/5*(self.end_values[x] - self.start_values[x]) + self.start_values[x]
                 self.pub[x].publish(value)
                 t = t + 0.1
-                sleep(.1)
-       
+                rospy.sleep(.1)
+        rospy.sleep(3)
+        while (t >= 0):
+            for x in range(0,3):
+                value = t/5*(self.end_values[x] - self.start_values[x]) + self.start_values[x]
+                self.pub[x].publish(value)
+                t = t - 0.1
+                rospy.sleep(.1)
+ 
+        rospy.sleep(3)
 
         
         
